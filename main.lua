@@ -26,7 +26,8 @@ function love.load()
   -- Comment this out to disable debug print
   --gameWorld.debug = require('ui.debug'):new()
 
-  gameWorld.playerInput = require('player.controls')
+  --gameWorld.playerInput = require('player.controls')
+  gameWorld.playerInput = require('ai'):new()
 
   gameWorld.gameState = require('gamestates.manager'):new()
   gameWorld.playerData = require('player.playerdata'):new()
@@ -35,6 +36,7 @@ function love.load()
 end
 
 function love.update(dt)
+  require('lib.lurker').update()
   flux.update(dt)
   gameWorld.gameState:update(dt)
   gameWorld.sound:update(dt)
@@ -52,7 +54,7 @@ end
 
 function love.focus(f)
   if not f and gameWorld.gameState:getCurrent() == 'gameplay' then
-    gameWorld.gameState:pushState('pause')
+--    gameWorld.gameState:pushState('pause')
   end
 end
 
