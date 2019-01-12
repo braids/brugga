@@ -40,6 +40,7 @@ function Ending:initialize(name)
 
   self.losstags = {{'brugga'}, {'loss'}}
   self.endingtags = {{'brugga'}, {'ending'}}
+  self.wintags = {{'brugga'}, {'win'}}
 
 
   self.font_banner = gameWorld.assets.fonts.generic(90)
@@ -71,11 +72,6 @@ end
 
 function Ending:enter()
   self.fade = 1.0
-  flux.to(self, 2, { fade = 0.0 }):ease("quadinout"):oncomplete(function() gameWorld.sound:playSfx('gameover') end)
-
-  self.backsnow = require('ui.snow'):new()
-  self.snow = require('ui.snow'):new()
-  gameWorld.sound:playMusic('ending')
 
   local high_score = 0
   if gameWorld.playerData.endless then
@@ -93,11 +89,23 @@ function Ending:enter()
   end
 
 
+  flux.to(self, 2, { fade = 0.0 }):ease("quadinout"):oncomplete(function() gameWorld.sound:playSfx('gameOver') end)
+
+  self.backsnow = require('ui.snow'):new()
+  self.snow = require('ui.snow'):new()
+  gameWorld.sound:playMusic('ending')
+
+
+
   if gameWorld.playerData.score < 0 then
     gameWorld.sound:playVoice(self.losstags)
+  elseif (not gameWorld.playerData.endless and gameWorld.playerData.wave >= 10)
+          or (gameWorld.playerData.score > high_score) then
+    gameWorld.sound:playVoice(self.wintags)
   else
     gameWorld.sound:playVoice(self.endingtags)
   end
+
   self.score = Score:new(gameWorld.playerData.score, 80, 0):getDrawable()
   self.high_score = Score:new(high_score, 80, 0):getDrawable()
 

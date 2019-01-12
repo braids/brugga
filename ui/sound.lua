@@ -33,6 +33,7 @@ function SoundManager:initialize()
     loss = ripple.newTag(),
     serve = ripple.newTag(),
     brugga = ripple.newTag(),
+    win = ripple.newTag(),
   }
 
 
