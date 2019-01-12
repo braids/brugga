@@ -91,6 +91,7 @@ function Credits:draw()
 
     x = ((1280 - 100) / 2) - x
   end
+  love.graphics.draw(love.graphics.newText(self.textfont, 'v1.1'),  1200, 680)
   love.graphics.setColor(gameWorld.colors.white)
   self.snow:draw()
 
