@@ -36,6 +36,7 @@ function SoundManager:initialize()
     win = ripple.newTag(),
   }
 
+  self.tags.win.volume = 1.5
 
   --self.ui.assets = cargo.init('assets')
 
